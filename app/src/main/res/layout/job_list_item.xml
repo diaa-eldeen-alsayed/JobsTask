@@ -12,63 +12,78 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+
+        >
 
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/company_logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            app:setImage='@{jobItem.company_logo!=null?jobItem.company_logo:""}'
+            android:layout_marginBottom="6dp"
             android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:setImage='@{jobItem.company_logo!=null?jobItem.company_logo:""}'
             tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:lines="2"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="@{jobItem.title}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+
+            <TextView
+                android:id="@+id/job_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:lines="2"
+                android:text="@{jobItem.title}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/company_logo"
+                app:layout_constraintTop_toTopOf="@+id/company_logo"
+                tools:text="Android developer Android developer
+Android developer Android developerAndroid developerAndroid developerAndroid developerAndroid developerAndroid developerAndroid developer" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/company_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:lines="2"
             android:text="@{jobItem.company}"
-            android:lines="2"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.52" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="4dp"
-            android:src="@drawable/ic_favorite_24"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/company_logo"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:srcCompat="@drawable/ic_favorite_24" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toEndOf="@+id/company_logo"
+            app:layout_constraintTop_toBottomOf="@+id/job_title"
+            app:layout_constraintVertical_bias="0.19"
+            tools:text="Android developer Android developer
+Android developer Android developerAndroid developerAndroid developerAndroid developerAndroid developerAndroid developerAndroid developer" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/ic_favorite_24"
+                android:layout_gravity="end"
+                app:layout_constraintBottom_toBottomOf="@+id/company_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/company_name"
+                tools:srcCompat="@drawable/ic_favorite_24" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

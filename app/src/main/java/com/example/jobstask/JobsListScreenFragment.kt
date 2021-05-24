@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jobstask.adapters.JobAdapter
-import com.example.jobstask.databinding.FragmentFirstScreenBinding
+
 import com.example.jobstask.databinding.FragmentJobsListScreenBinding
 import com.example.jobstask.viewmodel.JobsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -56,6 +56,7 @@ class JobsListScreenFragment : Fragment() {
             when (result.status) {
                 Result.Status.SUCCESS -> {
                     result.let { list ->
+                        binding.jobsRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                      jobAdapter= JobAdapter(list.data!!)
                         binding.jobsRecyclerView.adapter=jobAdapter
 

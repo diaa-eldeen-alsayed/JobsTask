@@ -1,34 +1,43 @@
-
-import com.example.jobstask.R
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.BuildConfig
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import kotlin.math.sin
 
 val networkModule = module {
-    val connectTimeout : Long = 40// 20s
-    val readTimeout : Long  = 40 // 20s
+    val connectTimeout: Long = 40// 20s
+    val readTimeout: Long = 40 // 20s
 
-    fun provideHttpClient(): OkHttpClient {
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        // For logging
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return loggingInterceptor
+    }
+
+    fun provideHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         val okHttpClientBuilder = OkHttpClient.Builder()
-            .connectTimeout(connectTimeout, TimeUnit.SECONDS)
-            .readTimeout(readTimeout, TimeUnit.SECONDS)
+                .addInterceptor(interceptor)
+                .connectTimeout(connectTimeout, TimeUnit.SECONDS)
+                .readTimeout(readTimeout, TimeUnit.SECONDS)
         okHttpClientBuilder.build()
         return okHttpClientBuilder.build()
     }
+
     fun provideRetrofit(client: OkHttpClient, baseUrl: String): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
     }
     single {
-        provideHttpClient()
+        provideHttpLoggingInterceptor()
+    }
+    single {
+        provideHttpClient(get())
     }
     single {
         val baseUrl = "https://jobs.github.com/"

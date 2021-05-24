@@ -2,6 +2,7 @@ package com.example.jobstask.App
 
 import android.app.Application
 import com.example.jobstask.di.apiModule
+import com.example.jobstask.di.databaseModule
 import com.example.jobstask.di.repositoryModule
 import com.example.jobstask.di.viewModelModule
 import networkModule
@@ -19,6 +20,7 @@ class JobsApplication : Application() {
             modules(
                 apiModule,
                 networkModule,
+                databaseModule,
                 repositoryModule,
                 viewModelModule
             )

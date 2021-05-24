@@ -6,14 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.jobstask.databinding.JobListItemBinding
 import com.example.jobstask.model.Job
 import com.example.jobstask.model.JobItem
+import timber.log.Timber
+import java.util.logging.Logger
 
-class JobAdapter(private val items: Job) :RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
+class JobAdapter(private val items: List<JobItem>) :RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = JobListItemBinding.inflate(inflater)
+        val binding = JobListItemBinding.inflate(inflater,parent,false)
         return JobViewHolder(binding)
     }
 
@@ -26,7 +28,7 @@ class JobAdapter(private val items: Job) :RecyclerView.Adapter<JobAdapter.JobVie
     }
     inner class JobViewHolder(private val binding: JobListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: JobItem) {
-          binding.jobItem=item
+            binding.jobItem=item
         }
     }
 
