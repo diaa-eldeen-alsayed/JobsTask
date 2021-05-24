@@ -25,7 +25,7 @@ import com.example.jobstask.interfaces.ClickHandlers
  */
 class FirstScreenFragment : Fragment() , ClickHandlers.FirstScreenHandler {
     lateinit var binding:FragmentFirstScreenBinding
-    lateinit var navController:NavController;
+    lateinit var navController:NavController
     // TODO: Rename and change types of parameters
 
 
@@ -41,7 +41,7 @@ class FirstScreenFragment : Fragment() , ClickHandlers.FirstScreenHandler {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_first_screen, container, false);
+        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_first_screen, container, false)
         return binding.root;
     }
 
