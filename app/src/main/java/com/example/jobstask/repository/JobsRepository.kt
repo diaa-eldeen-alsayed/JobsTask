@@ -32,38 +32,45 @@ class JobsRepository (private val api: Webservice,
                 if (result.isSuccessful && result.body() != null) {
                     result.body()?.let {
                         withContext(Dispatchers.IO) {
-                            dao.add(it)
-                            emit(Result.success(it))
+                            for (item in it){
+                                dao.add(item) }
+
+                        }
+                            emit(Result.success(dao.findAll().first()))
                         }
                     }
 
-                } else {
+                 else {
                     emit(Result.error("error"))
                 }
             }.flowOn(Dispatchers.IO)
         }
         else{
-            return flow{
-                emit(Result.loading(null))
-                val result = getJobsDataFromCache()
-                if(result.first().isNotEmpty()){
-                    emit(Result.success(result.first()))
-                }
-                else{
-                    emit(Result.error("not found Data "))
-                }
-            }.flowOn(Dispatchers.IO)
+           return getJobsDataFromCache()
+        }
+
+    }
+    private suspend fun getJobsDataFromCache(): Flow<Result<List<JobItem>>> {
+        return flow{
+            emit(Result.loading(null))
+            val result = dao.findAll()
+            if(result.first().isNotEmpty()){
+                emit(Result.success(result.first()))
+            }
+            else{
+                emit(Result.error("not found Data "))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+    suspend fun updateFavorite(jobItem:JobItem){
+        withContext(Dispatchers.IO) {
+            val isUpdate:Int= dao.update(jobItem)
 
         }
 
+    }
 
 
-    }
-    private suspend fun getJobsDataFromCache(): Flow<List<JobItem>> {
-        return withContext(Dispatchers.IO) {
-            dao.findAll()
-        }
-    }
 
 
 

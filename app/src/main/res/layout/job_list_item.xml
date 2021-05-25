@@ -7,13 +7,16 @@
         <variable
             name="jobItem"
             type="com.example.jobstask.model.JobItem" />
+        <variable
+            name="handler"
+            type="com.example.jobstask.interfaces.ClickHandlers.JobListHandler" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:onClick="@{(view)->handler.onItemClick(jobItem.id,view)}"
         >
 
 
@@ -77,7 +80,8 @@ Android developer Android developerAndroid developerAndroid developerAndroid dev
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="4dp"
-                android:src="@drawable/ic_favorite_24"
+                android:src='@{jobItem.favorite?@drawable/ic_unfavorite_24:@drawable/ic_favorite_24}'
+                android:onClick="@{()->handler.onFavoriteClick(jobItem)}"
                 android:layout_gravity="end"
                 app:layout_constraintBottom_toBottomOf="@+id/company_logo"
                 app:layout_constraintEnd_toEndOf="parent"

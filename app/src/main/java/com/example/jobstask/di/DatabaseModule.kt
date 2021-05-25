@@ -7,6 +7,7 @@ import com.example.jobstask.local.JobsDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
+
 val databaseModule = module {
 
     fun provideDatabase(application: Application): JobsDatabase {
@@ -21,6 +22,7 @@ val databaseModule = module {
 
     single { provideDatabase(androidApplication()) }
     single { provideJobDao(get()) }
+
 
 
 }

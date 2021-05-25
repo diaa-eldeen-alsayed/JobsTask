@@ -11,19 +11,23 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class JobsViewModel(private val repository : JobsRepository):ViewModel() {
-    private val _jobList = MutableLiveData<Result<List<JobItem>>>()
-    val jobList=_jobList;
-    init {
-        getAllJobs()
-    }
-
-    fun getAllJobs() {
-
+    private var _jobList = MutableLiveData<Result<List<JobItem>>>()
+    
+    
+    fun getAllJobs():MutableLiveData<Result<List<JobItem>>> {
         viewModelScope.launch {
             repository.getAllJobs().collect {
                  _jobList.value=it
              }
         }
+        return _jobList
+    }
+
+    fun updateFavorite(jobItem:JobItem){
+        viewModelScope.launch {
+        repository.updateFavorite(jobItem)
+        }
+
     }
 
 }

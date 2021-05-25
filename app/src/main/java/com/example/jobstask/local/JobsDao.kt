@@ -10,10 +10,16 @@ interface JobsDao {
     fun findAll(): Flow<List<JobItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(job: List<JobItem>)
+    fun addALL(job: List<JobItem>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun add(job: JobItem)
+
+    @Query("SELECT * FROM Jobs WHERE id=:jobId")
+    fun findJob(jobId:String):Boolean
 
     @Update
-    fun update(job: JobItem)
+    fun update(job: JobItem):Int
 
 
 

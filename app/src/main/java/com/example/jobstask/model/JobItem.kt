@@ -17,5 +17,5 @@ data class JobItem(
         val title: String,
         val type: String,
         val url: String,
-        val isFavorite:Boolean
+        var isFavorite:Boolean
 )

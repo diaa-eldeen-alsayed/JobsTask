@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jobstask.adapters.JobAdapter
 
 import com.example.jobstask.databinding.FragmentJobsListScreenBinding
+
 import com.example.jobstask.viewmodel.JobsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import com.example.jobstask.model.Result
@@ -23,10 +23,11 @@ import com.google.android.material.snackbar.Snackbar
  * Use the [JobsListScreenFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class JobsListScreenFragment : Fragment() {
+class JobsListScreenFragment() : Fragment() {
     lateinit var binding: FragmentJobsListScreenBinding
     private val jobsViewModel by viewModel<JobsViewModel>()
     private lateinit var jobAdapter: JobAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,7 @@ class JobsListScreenFragment : Fragment() {
 
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,17 +49,25 @@ class JobsListScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
    subscribeUi()
+        setupswipeRefresh()
     }
+fun setupswipeRefresh(){
+    binding.swipeRefresh.setOnRefreshListener {
+        binding.jobsRecyclerView.adapter=null
+        subscribeUi()
+        binding.swipeRefresh.isRefreshing=false
 
+    }
+}
     private fun subscribeUi() {
 
-        jobsViewModel.jobList.observe(this.viewLifecycleOwner, Observer { result ->
-
+        jobsViewModel.getAllJobs().observe(requireActivity(), Observer { result ->
             when (result.status) {
                 Result.Status.SUCCESS -> {
+                    binding.progressBar.visibility=View.INVISIBLE
                     result.let { list ->
                         binding.jobsRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-                     jobAdapter= JobAdapter(list.data!!)
+                     jobAdapter= JobAdapter(list.data!!,jobsViewModel)
                         binding.jobsRecyclerView.adapter=jobAdapter
 
                     }
@@ -65,6 +75,7 @@ class JobsListScreenFragment : Fragment() {
                 }
 
                 Result.Status.ERROR -> {
+                    binding.progressBar.visibility=View.INVISIBLE
                     result.message?.let {
                         showError(it)
                     }
@@ -82,4 +93,7 @@ class JobsListScreenFragment : Fragment() {
         Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE).setAction("DISMISS") {
         }.show()
     }
+
+
+
 }
