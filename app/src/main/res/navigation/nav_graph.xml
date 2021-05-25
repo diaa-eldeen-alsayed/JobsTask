@@ -7,12 +7,21 @@
 
     <fragment
         android:id="@+id/firstScreenFragment"
-        android:name="com.example.jobstask.FirstScreenFragment"
+        android:name="com.example.jobstask.view.FirstScreenFragment"
         android:label="fragment_first_screen"
         tools:layout="@layout/fragment_first_screen" />
     <fragment
         android:id="@+id/jobsListScreenFragment"
-        android:name="com.example.jobstask.JobsListScreenFragment"
+        android:name="com.example.jobstask.view.JobsListScreenFragment"
         android:label="fragment_jobs_list_screen"
         tools:layout="@layout/fragment_jobs_list_screen" />
+    <fragment
+        android:id="@+id/jobDetailsFragment"
+        android:name="com.example.jobstask.view.JobDetailsFragment"
+        android:label="fragment_job_details"
+        tools:layout="@layout/fragment_job_details" >
+        <argument
+            android:name="ID_JOB"
+            app:argType="integer" />
+    </fragment>
 </navigation>

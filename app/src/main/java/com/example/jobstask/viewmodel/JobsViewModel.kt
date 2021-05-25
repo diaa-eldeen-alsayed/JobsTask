@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class JobsViewModel(private val repository : JobsRepository):ViewModel() {
     private var _jobList = MutableLiveData<Result<List<JobItem>>>()
-    
+    private var _job = MutableLiveData<Result<JobItem>>()
     
     fun getAllJobs():MutableLiveData<Result<List<JobItem>>> {
         viewModelScope.launch {
@@ -28,6 +28,14 @@ class JobsViewModel(private val repository : JobsRepository):ViewModel() {
         repository.updateFavorite(jobItem)
         }
 
+    }
+    fun getJobById(jobId:String):MutableLiveData<Result<JobItem>>{
+        viewModelScope.launch {
+            repository.getJobById(jobId).collect {
+                _job.value=it
+            }
+        }
+        return  _job
     }
 
 }

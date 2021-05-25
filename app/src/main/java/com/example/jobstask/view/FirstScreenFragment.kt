@@ -1,4 +1,4 @@
-package com.example.jobstask
+package com.example.jobstask.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph
-import androidx.navigation.NavHostController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
+import com.example.jobstask.R
 import com.example.jobstask.databinding.FragmentFirstScreenBinding
 import com.example.jobstask.interfaces.ClickHandlers
 
@@ -41,7 +39,8 @@ class FirstScreenFragment : Fragment() , ClickHandlers.FirstScreenHandler {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_first_screen, container, false)
+        binding=DataBindingUtil.inflate(inflater,
+            R.layout.fragment_first_screen, container, false)
         return binding.root;
     }
 

@@ -1,14 +1,20 @@
 package com.example.jobstask.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavGraph
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.jobstask.R
 import com.example.jobstask.databinding.JobListItemBinding
 
 import com.example.jobstask.interfaces.ClickHandlers
 import com.example.jobstask.model.JobItem
+import com.example.jobstask.view.JobDetailsFragment
 import com.example.jobstask.viewmodel.JobsViewModel
+import timber.log.Timber
 
 class JobAdapter(private val items: List<JobItem>, private val jobsViewModel: JobsViewModel) :RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
@@ -41,7 +47,9 @@ class JobAdapter(private val items: List<JobItem>, private val jobsViewModel: Jo
         }
 
         override fun onItemClick(jobId:String,view : View) {
-
+          val bundle= Bundle()
+            bundle.putString("job_id",jobId)
+            Navigation.findNavController(view).navigate(R.id.jobDetailsFragment,bundle)
         }
 
 

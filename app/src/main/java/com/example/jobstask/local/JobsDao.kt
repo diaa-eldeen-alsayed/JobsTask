@@ -16,7 +16,7 @@ interface JobsDao {
     fun add(job: JobItem)
 
     @Query("SELECT * FROM Jobs WHERE id=:jobId")
-    fun findJob(jobId:String):Boolean
+    fun findJob(jobId:String):JobItem
 
     @Update
     fun update(job: JobItem):Int

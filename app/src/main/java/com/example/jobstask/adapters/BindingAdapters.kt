@@ -1,6 +1,8 @@
 package com.example.jobstask.adapters
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -20,6 +22,16 @@ object  BindingAdapters {
                 .placeholder(circularProgressDrawable)
                 .error(R.drawable.noimagefound)
                 .into(imageView)
+    }
+    @BindingAdapter("setText")
+    @JvmStatic
+    fun  setText(textView:TextView, text: String?) {
+        if(text==null){
+            textView.visibility= View.GONE
+        }
+        else{
+            textView.text=text
+        }
     }
 
 }

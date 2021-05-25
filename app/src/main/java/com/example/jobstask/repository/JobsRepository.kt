@@ -50,6 +50,13 @@ class JobsRepository (private val api: Webservice,
         }
 
     }
+    suspend fun getJobById( jobId:String): Flow<Result<JobItem>> {
+        return flow {
+            emit(Result.loading(null))
+            val result = dao.findJob(jobId)
+            emit(Result.success(result))
+            }.flowOn(Dispatchers.IO)
+    }
     private suspend fun getJobsDataFromCache(): Flow<Result<List<JobItem>>> {
         return flow{
             emit(Result.loading(null))
@@ -64,7 +71,7 @@ class JobsRepository (private val api: Webservice,
     }
     suspend fun updateFavorite(jobItem:JobItem){
         withContext(Dispatchers.IO) {
-            val isUpdate:Int= dao.update(jobItem)
+           dao.update(jobItem)
 
         }
 

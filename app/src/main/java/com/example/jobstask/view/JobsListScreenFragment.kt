@@ -1,4 +1,4 @@
-package com.example.jobstask
+package com.example.jobstask.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.jobstask.R
 import com.example.jobstask.adapters.JobAdapter
 
 import com.example.jobstask.databinding.FragmentJobsListScreenBinding
 
-import com.example.jobstask.viewmodel.JobsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import com.example.jobstask.model.Result
+import com.example.jobstask.viewmodel.JobsViewModel
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -42,18 +43,20 @@ class JobsListScreenFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding= DataBindingUtil.inflate(inflater,R.layout.fragment_jobs_list_screen, container, false)
+        binding= DataBindingUtil.inflate(inflater,
+            R.layout.fragment_jobs_list_screen, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-   subscribeUi()
+        subscribeUi()
         setupswipeRefresh()
     }
 fun setupswipeRefresh(){
     binding.swipeRefresh.setOnRefreshListener {
         binding.jobsRecyclerView.adapter=null
+        binding.jobsRecyclerView.visibility=View.INVISIBLE
         subscribeUi()
         binding.swipeRefresh.isRefreshing=false
 
@@ -65,6 +68,7 @@ fun setupswipeRefresh(){
             when (result.status) {
                 Result.Status.SUCCESS -> {
                     binding.progressBar.visibility=View.INVISIBLE
+                    binding.jobsRecyclerView.visibility=View.VISIBLE
                     result.let { list ->
                         binding.jobsRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                      jobAdapter= JobAdapter(list.data!!,jobsViewModel)
@@ -93,6 +97,7 @@ fun setupswipeRefresh(){
         Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE).setAction("DISMISS") {
         }.show()
     }
+
 
 
 

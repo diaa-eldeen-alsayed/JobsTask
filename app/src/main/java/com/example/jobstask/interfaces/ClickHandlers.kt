@@ -11,4 +11,9 @@ class ClickHandlers {
         fun onFavoriteClick(jobItem: JobItem)
         fun onItemClick(jobId:String,view :View)
     }
+    public interface JobDetailsHandler{
+        fun onFavoriteClick(jobItem: JobItem)
+
+    }
+
 }
